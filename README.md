@@ -1,16 +1,30 @@
-# dyslexia_app
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
 
-A new Flutter project.
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-## Getting Started
+import 'package:dyslexia_app/main.dart';
 
-This project is a starting point for a Flutter application.
+void main() {
+testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+// Build our app and trigger a frame.
+await tester.pumpWidget(const MyApp());
 
-A few resources to get you started if this is your first Flutter project:
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+});
+}
